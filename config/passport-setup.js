@@ -20,6 +20,7 @@ passport.use(new GoogleStrategy({
     clientSecret:keys.google.clientSecret
 },(accessToken,refreshToken,profile,done)=>{
   User.findOne({googleId: profile.id}).then((currentUser) => {
+    console.log(profile);
     if(currentUser){
         // already have this user
         console.log('user is: ', currentUser);
@@ -27,7 +28,7 @@ passport.use(new GoogleStrategy({
         // do something
     } else {
         // if not, create user in our db
-        User.create({googleId:profile.id,username:profile.displayName},(err,newUser)=>{
+        User.create({googleId:profile.id,username:profile.displayName,thumbnail:profile._json.image.url},(err,newUser)=>{
           if(err){
             console.log(err);
           }

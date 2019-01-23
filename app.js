@@ -33,7 +33,7 @@ app.use("/profile",profileRoutes);
 
 //home route
 app.get("/",(req,res)=>{
-    res.render("home");
+    res.render("home",{user:req.user});
 });
 
 app.listen(3000,()=>{
